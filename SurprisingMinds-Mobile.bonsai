@@ -82,6 +82,202 @@
           </Edges>
         </Workflow>
       </Expression>
+      <Expression xsi:type="Defer">
+        <Name>StartScreen</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Draw</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="TakeUntil" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q1:Timer">
+                <q1:DueTime>PT1S</q1:DueTime>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Last" />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>DueTime</MemberName>
+              <Name>DueTime</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>TextureName</MemberName>
+              <Name>TextureName</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
+              <TextureName />
+              <LocationX>0</LocationX>
+              <LocationY>0</LocationY>
+              <SizeX>1</SizeX>
+              <SizeY>1</SizeY>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>1</From>
+              <To>3</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>2</From>
+              <To>1</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>3</From>
+              <To>4</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>5</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>6</From>
+              <To>7</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>7</From>
+              <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="SelectMany">
+        <Name>Calibration</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Random</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Draw</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Take">
+                <Count>60</Count>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>LocationX</MemberName>
+              <Name />
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>LocationY</MemberName>
+              <Name />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q3:Sample" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q3:Sample" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Repeat" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="DelaySubscription">
+                <DueTime>PT1S</DueTime>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>SizeX</MemberName>
+              <Name>TargetSizeX</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>SizeY</MemberName>
+              <Name>TargetSizeY</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawTarget">
+              <LocationX>0</LocationX>
+              <LocationY>0</LocationY>
+              <SizeX>0.1</SizeX>
+              <SizeY>0.1</SizeY>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge>
+              <From>0</From>
+              <To>6</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>0</From>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>1</From>
+              <To>12</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>3</From>
+              <To>9</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>4</From>
+              <To>12</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>5</From>
+              <To>12</To>
+              <Label>Source3</Label>
+            </Edge>
+            <Edge>
+              <From>6</From>
+              <To>4</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>7</From>
+              <To>5</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>8</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
+              <To>8</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>10</From>
+              <To>12</To>
+              <Label>Source4</Label>
+            </Edge>
+            <Edge>
+              <From>11</From>
+              <To>12</To>
+              <Label>Source5</Label>
+            </Edge>
+            <Edge>
+              <From>12</From>
+              <To>3</To>
+              <Label>Source1</Label>
+            </Edge>
+          </Edges>
+        </Workflow>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge>
@@ -109,6 +305,11 @@
         <To>3</To>
         <Label>Source1</Label>
       </Edge>
+      <Edge>
+        <From>7</From>
+        <To>8</To>
+        <Label>Source1</Label>
+      </Edge>
     </Edges>
   </Workflow>
   <ExtensionTypes>
@@ -120,5 +321,12 @@
     <Type>Bonsai.Shaders.AspectRatio, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.MultiplyBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.FloatProperty, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.Timer, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Last, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Take, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Numerics.Distributions.Sample, Bonsai.Numerics, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
   </ExtensionTypes>
 </WorkflowBuilder>
