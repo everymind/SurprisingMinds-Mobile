@@ -149,6 +149,10 @@
               <MemberName>TextureName</MemberName>
               <Name>TextureName</Name>
             </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>SizeX</MemberName>
+              <Name />
+            </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName />
               <LocationX>0</LocationX>
@@ -156,11 +160,47 @@
               <SizeX>1.33333337</SizeX>
               <SizeY>1</SizeY>
             </Expression>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>FullWidth</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:UpdateFrame" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:AspectRatio" />
+                  </Expression>
+                  <Expression xsi:type="Multiply">
+                    <Operand xsi:type="FloatProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>1</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>1</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>2</From>
+                    <To>3</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
               <From>0</From>
-              <To>7</To>
+              <To>8</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -185,12 +225,22 @@
             </Edge>
             <Edge>
               <From>6</From>
-              <To>7</To>
+              <To>8</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>7</From>
+              <To>8</To>
+              <Label>Source3</Label>
+            </Edge>
+            <Edge>
+              <From>8</From>
               <To>1</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
+              <To>7</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -679,12 +729,52 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="Last" />
             </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>SizeX</MemberName>
+              <Name />
+            </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
               <LocationX>0</LocationX>
               <LocationY>0</LocationY>
-              <SizeX>1</SizeX>
+              <SizeX>1.33333337</SizeX>
               <SizeY>-1</SizeY>
+            </Expression>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>FullWidth</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:UpdateFrame" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:AspectRatio" />
+                  </Expression>
+                  <Expression xsi:type="Multiply">
+                    <Operand xsi:type="FloatProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>1</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>1</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>2</From>
+                    <To>3</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
             </Expression>
           </Nodes>
           <Edges>
@@ -700,7 +790,7 @@
             </Edge>
             <Edge>
               <From>3</From>
-              <To>8</To>
+              <To>9</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -720,7 +810,17 @@
             </Edge>
             <Edge>
               <From>8</From>
+              <To>9</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
               <To>5</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>10</From>
+              <To>8</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -837,6 +937,7 @@
     <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.Timer, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Last, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.UpdateFrame, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>ModelUpdate, Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.ToArray, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
