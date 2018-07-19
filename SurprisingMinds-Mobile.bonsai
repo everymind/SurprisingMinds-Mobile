@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.4.0-preview">
-  <Workflow xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:q2="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics" xmlns:q3="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics" xmlns:q4="clr-namespace:Bonsai.Uvc;assembly=Bonsai.Uvc" xmlns:q5="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q6="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp" xmlns:q7="clr-namespace:;assembly=Extensions" xmlns="https://horizongir.org/bonsai">
+  <Workflow xmlns:q8="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:q2="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics" xmlns:q3="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics" xmlns:q4="clr-namespace:Bonsai.Uvc;assembly=Bonsai.Uvc" xmlns:q5="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q6="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp" xmlns:q7="clr-namespace:;assembly=Extensions" xmlns="https://horizongir.org/bonsai">
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q1:RenderFrame" />
@@ -275,6 +275,7 @@
                     <SizeY>0.1</SizeY>
                   </Expression>
                   <Expression xsi:type="SkipWhile">
+                    <Name>SkipWhileMarkerNotFound</Name>
                     <Workflow>
                       <Nodes>
                         <Expression xsi:type="WorkflowInput">
@@ -358,6 +359,32 @@
                         </Edge>
                         <Edge>
                           <From>3</From>
+                          <To>1</To>
+                          <Label>Source1</Label>
+                        </Edge>
+                      </Edges>
+                    </Workflow>
+                  </Expression>
+                  <Expression xsi:type="Condition">
+                    <Name>ValidPupil</Name>
+                    <Workflow>
+                      <Nodes>
+                        <Expression xsi:type="WorkflowInput">
+                          <Name>Source1</Name>
+                        </Expression>
+                        <Expression xsi:type="WorkflowOutput" />
+                        <Expression xsi:type="q8:ExpressionTransform">
+                          <q8:Expression>!single.IsNaN(Item2.X)</q8:Expression>
+                        </Expression>
+                      </Nodes>
+                      <Edges>
+                        <Edge>
+                          <From>0</From>
+                          <To>2</To>
+                          <Label>Source1</Label>
+                        </Edge>
+                        <Edge>
+                          <From>2</From>
                           <To>1</To>
                           <Label>Source1</Label>
                         </Edge>
@@ -453,12 +480,17 @@
                   </Edge>
                   <Edge>
                     <From>17</From>
-                    <To>13</To>
+                    <To>19</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>18</From>
                     <To>15</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>19</From>
+                    <To>13</To>
                     <Label>Source1</Label>
                   </Edge>
                 </Edges>
@@ -708,6 +740,7 @@
     <Type>Bonsai.Expressions.DoubleProperty, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.GreaterThanBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.IntProperty, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Scripting.ExpressionTransform, Bonsai.Scripting, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Threshold, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.FindContours, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.BinaryRegionAnalysis, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
