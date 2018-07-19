@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.4.0-preview">
-  <Workflow xmlns:q8="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q9="clr-namespace:Bonsai.Shaders.Input;assembly=Bonsai.Shaders" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:q2="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics" xmlns:q3="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics" xmlns:q4="clr-namespace:Bonsai.Uvc;assembly=Bonsai.Uvc" xmlns:q5="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q6="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp" xmlns:q7="clr-namespace:;assembly=Extensions" xmlns="https://horizongir.org/bonsai">
+  <Workflow xmlns:q8="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q9="clr-namespace:Bonsai.Shaders.Input;assembly=Bonsai.Shaders" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:q2="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics" xmlns:q3="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics" xmlns:q4="clr-namespace:Bonsai.Uvc;assembly=Bonsai.Uvc" xmlns:q5="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q6="clr-namespace:;assembly=Extensions" xmlns:q7="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp" xmlns="https://horizongir.org/bonsai">
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q1:RenderFrame" />
@@ -26,21 +26,8 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q4:DeviceCapture">
           <q4:Index>0</q4:Index>
-          <q4:ColorFormat>Grayscale</q4:ColorFormat>
+          <q4:ColorFormat>Color</q4:ColorFormat>
         </Combinator>
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Image</Selector>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q5:Sobel">
-          <q5:XOrder>1</q5:XOrder>
-          <q5:YOrder>1</q5:YOrder>
-          <q5:ApertureSize>7</q5:ApertureSize>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q6:Extrema" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q4:DeviceCapture">
@@ -57,11 +44,11 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q5:Centroid" />
       </Expression>
-      <Expression xsi:type="PublishSubject">
-        <Name>CalibrationTarget</Name>
-      </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="Zip" />
+      </Expression>
+      <Expression xsi:type="PublishSubject">
+        <Name>World</Name>
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>ViewMatrix</Name>
@@ -252,7 +239,7 @@
           <Nodes>
             <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q7:ModelUpdate" />
+              <Combinator xsi:type="q6:ModelUpdate" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="ToArray" />
@@ -264,6 +251,28 @@
               <Combinator xsi:type="Take">
                 <Count>5</Count>
               </Combinator>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>World</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q5:Sobel">
+                <q5:XOrder>1</q5:XOrder>
+                <q5:YOrder>1</q5:YOrder>
+                <q5:ApertureSize>7</q5:ApertureSize>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q7:Extrema" />
+            </Expression>
+            <Expression xsi:type="PublishSubject">
+              <Name>CalibrationTarget</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Image</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q5:Grayscale" />
             </Expression>
             <Expression xsi:type="Defer">
               <Name>CalibrationTrial</Name>
@@ -319,14 +328,14 @@
                     <Combinator xsi:type="Last" />
                   </Expression>
                   <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="q7:AverageCorrespondence" />
+                    <Combinator xsi:type="q6:AverageCorrespondence" />
                   </Expression>
                   <Expression xsi:type="MemberSelector">
                     <Selector>Item1</Selector>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawTarget">
-                    <LocationX>-0.408425868</LocationX>
-                    <LocationY>0.62835145</LocationY>
+                    <LocationX>0.786388159</LocationX>
+                    <LocationY>-0.40621984</LocationY>
                     <SizeX>0.1</SizeX>
                     <SizeY>0.1</SizeY>
                   </Expression>
@@ -342,8 +351,8 @@
                           <Selector>Item1.MaxValue</Selector>
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="q6:Difference">
-                            <q6:Order>1</q6:Order>
+                          <Combinator xsi:type="q7:Difference">
+                            <q7:Order>1</q7:Order>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="LessThan">
@@ -581,6 +590,31 @@
             </Edge>
             <Edge>
               <From>5</From>
+              <To>9</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>6</From>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>7</From>
+              <To>8</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
+              <To>10</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>10</From>
+              <To>6</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>11</From>
               <To>3</To>
               <Label>Source1</Label>
             </Edge>
@@ -651,50 +685,210 @@
         </Workflow>
       </Expression>
       <Expression xsi:type="SelectMany">
-        <Name>Test</Name>
+        <Name>MoviePlayback</Name>
         <Workflow>
           <Nodes>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>World</Name>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>Pupil</Name>
             </Expression>
             <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q5:FileCapture">
+                <q5:FileName>Movies\video.avi</q5:FileName>
+                <q5:PlaybackRate>0</q5:PlaybackRate>
+                <q5:StartPosition>0</q5:StartPosition>
+                <q5:PositionUnits>Frames</q5:PositionUnits>
+                <q5:Loop>false</q5:Loop>
+                <q5:Playing>true</q5:Playing>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
               <Combinator xsi:type="CombineLatest" />
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q7:ModelPredict" />
+              <Combinator xsi:type="WithLatestFrom" />
             </Expression>
-            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>FileName</MemberName>
+              <Name>FileName</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q6:ModelPredict" />
+            </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Item1</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q1:UpdateTexture">
+                <q1:TextureName>Video</q1:TextureName>
+                <q1:InternalFormat>Rgba</q1:InternalFormat>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Draw</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>SizeX</MemberName>
+              <Name />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Zip" />
+            </Expression>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>PupilPosition</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item2.Item2.Item1,Item2.Item3</Selector>
+                  </Expression>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>1</From>
+                    <To>0</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
+              <TextureName>Video</TextureName>
+              <LocationX>0</LocationX>
+              <LocationY>0</LocationY>
+              <SizeX>1.33333337</SizeX>
+              <SizeY>-1</SizeY>
+            </Expression>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>FullWidth</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:UpdateFrame" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:AspectRatio" />
+                  </Expression>
+                  <Expression xsi:type="Multiply">
+                    <Operand xsi:type="FloatProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>1</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>1</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>2</From>
+                    <To>3</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
             </Expression>
           </Nodes>
           <Edges>
             <Edge>
               <From>0</From>
-              <To>2</To>
-              <Label>Source2</Label>
-            </Edge>
-            <Edge>
-              <From>1</From>
-              <To>5</To>
+              <To>4</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
+              <From>1</From>
+              <To>4</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
               <From>2</From>
-              <To>3</To>
+              <To>5</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>3</From>
               <To>4</To>
+              <Label>Source3</Label>
+            </Edge>
+            <Edge>
+              <From>4</From>
+              <To>5</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>5</From>
+              <To>8</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>5</From>
+              <To>14</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>6</From>
               <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>7</From>
+              <To>13</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>8</From>
+              <To>9</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
+              <To>13</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>10</From>
+              <To>15</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>11</From>
+              <To>15</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>13</From>
+              <To>12</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>14</From>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>16</From>
+              <To>11</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -830,7 +1024,7 @@
     <Edges>
       <Edge>
         <From>0</From>
-        <To>16</To>
+        <To>13</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -850,7 +1044,7 @@
       </Edge>
       <Edge>
         <From>6</From>
-        <To>7</To>
+        <To>12</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -859,13 +1053,13 @@
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>8</From>
-        <To>9</To>
-        <Label>Source1</Label>
+        <From>7</From>
+        <To>11</To>
+        <Label>Source2</Label>
       </Edge>
       <Edge>
-        <From>9</From>
-        <To>14</To>
+        <From>8</From>
+        <To>16</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -874,48 +1068,33 @@
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>10</From>
-        <To>15</To>
-        <Label>Source2</Label>
-      </Edge>
-      <Edge>
         <From>11</From>
-        <To>19</To>
+        <To>9</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
         <From>13</From>
-        <To>15</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>15</From>
-        <To>12</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>16</From>
         <To>3</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>17</From>
-        <To>21</To>
+        <From>14</From>
+        <To>18</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>15</From>
+        <To>17</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>16</From>
+        <To>10</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
         <From>18</From>
-        <To>20</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>19</From>
-        <To>13</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>21</From>
-        <To>18</To>
+        <To>15</To>
         <Label>Source1</Label>
       </Edge>
     </Edges>
@@ -926,8 +1105,6 @@
     <Type>Bonsai.Expressions.AsyncSubjectBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Numerics.Distributions.CreateContinuousUniform, Bonsai.Numerics, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Uvc.DeviceCapture, Bonsai.Uvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Vision.Sobel, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Dsp.Extrema, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Centroid, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Zip, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.CreateOrthographic, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -942,6 +1119,9 @@
     <Type>Bonsai.Reactive.ToArray, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Repeat, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Take, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Vision.Sobel, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Dsp.Extrema, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Vision.Grayscale, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Numerics.Distributions.Sample, Bonsai.Numerics, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.WithLatestFrom, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -957,6 +1137,7 @@
     <Type>Bonsai.Vision.FindContours, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.BinaryRegionAnalysis, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.LargestBinaryRegion, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.CombineLatest, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>ModelPredict, Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.UpdateTexture, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
