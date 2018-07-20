@@ -27,12 +27,16 @@
         <Combinator xsi:type="q4:DeviceCapture">
           <q4:Index>0</q4:Index>
           <q4:ColorFormat>Color</q4:ColorFormat>
+          <q4:AutoExposure>Manual</q4:AutoExposure>
+          <q4:ExposureTime>129</q4:ExposureTime>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q4:DeviceCapture">
           <q4:Index>2</q4:Index>
           <q4:ColorFormat>Grayscale</q4:ColorFormat>
+          <q4:AutoExposure xsi:nil="true" />
+          <q4:ExposureTime xsi:nil="true" />
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
@@ -164,7 +168,7 @@
               <TextureName />
               <LocationX>0</LocationX>
               <LocationY>0</LocationY>
-              <SizeX>1.6</SizeX>
+              <SizeX>1.33333337</SizeX>
               <SizeY>1</SizeY>
             </Expression>
             <Expression xsi:type="GroupWorkflow">
@@ -369,9 +373,13 @@
                   <Expression xsi:type="MemberSelector">
                     <Selector>Item1</Selector>
                   </Expression>
+                  <Expression xsi:type="ExternalizedProperty">
+                    <MemberName>Value</MemberName>
+                    <Name>Threshold</Name>
+                  </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawTarget">
-                    <LocationX>-0.14464435</LocationX>
-                    <LocationY>0.6248965</LocationY>
+                    <LocationX>-0.293194979</LocationX>
+                    <LocationY>0.05401994</LocationY>
                     <SizeX>0.1</SizeX>
                     <SizeY>0.1</SizeY>
                   </Expression>
@@ -393,7 +401,7 @@
                         </Expression>
                         <Expression xsi:type="LessThan">
                           <Operand xsi:type="DoubleProperty">
-                            <Value>10000</Value>
+                            <Value>5000</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="ExternalizedProperty">
@@ -506,7 +514,7 @@
                   </Edge>
                   <Edge>
                     <From>1</From>
-                    <To>17</To>
+                    <To>18</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -516,12 +524,12 @@
                   </Edge>
                   <Edge>
                     <From>3</From>
-                    <To>17</To>
+                    <To>18</To>
                     <Label>Source2</Label>
                   </Edge>
                   <Edge>
                     <From>4</From>
-                    <To>17</To>
+                    <To>18</To>
                     <Label>Source3</Label>
                   </Edge>
                   <Edge>
@@ -551,12 +559,12 @@
                   </Edge>
                   <Edge>
                     <From>10</From>
-                    <To>18</To>
+                    <To>19</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>11</From>
-                    <To>19</To>
+                    <To>20</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -581,21 +589,26 @@
                   </Edge>
                   <Edge>
                     <From>17</From>
+                    <To>19</To>
+                    <Label>Source2</Label>
+                  </Edge>
+                  <Edge>
+                    <From>18</From>
                     <To>2</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
-                    <From>18</From>
-                    <To>20</To>
-                    <Label>Source1</Label>
-                  </Edge>
-                  <Edge>
                     <From>19</From>
-                    <To>15</To>
+                    <To>21</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>20</From>
+                    <To>15</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>21</From>
                     <To>13</To>
                     <Label>Source1</Label>
                   </Edge>
@@ -827,7 +840,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:VideoWriter">
-                <q5:FileName>Data\2018-07-20T10_30_02\2018-07-20T10_30_02-world.avi</q5:FileName>
+                <q5:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-world.avi</q5:FileName>
                 <q5:Suffix>None</q5:Suffix>
                 <q5:Buffered>true</q5:Buffered>
                 <q5:Overwrite>false</q5:Overwrite>
@@ -841,7 +854,7 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="q10:CsvWriter">
-              <q10:FileName>Data\2018-07-20T10_30_02\2018-07-20T10_30_02-pupil.csv</q10:FileName>
+              <q10:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-pupil.csv</q10:FileName>
               <q10:Delimiter>,</q10:Delimiter>
               <q10:Append>false</q10:Append>
               <q10:Overwrite>false</q10:Overwrite>
@@ -890,11 +903,18 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="SkipUntil" />
             </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Slice">
+                <Start>0</Start>
+                <Step>2</Step>
+                <Stop xsi:nil="true" />
+              </Combinator>
+            </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
               <LocationX>0</LocationX>
               <LocationY>0</LocationY>
-              <SizeX>1.6</SizeX>
+              <SizeX>1.33333337</SizeX>
               <SizeY>-1</SizeY>
             </Expression>
             <Expression xsi:type="GroupWorkflow">
@@ -1003,7 +1023,7 @@
             </Edge>
             <Edge>
               <From>9</From>
-              <To>20</To>
+              <To>42</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1043,7 +1063,7 @@
             </Edge>
             <Edge>
               <From>16</From>
-              <To>44</To>
+              <To>45</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1088,7 +1108,7 @@
             </Edge>
             <Edge>
               <From>23</From>
-              <To>42</To>
+              <To>43</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
@@ -1173,16 +1193,21 @@
             </Edge>
             <Edge>
               <From>41</From>
-              <To>42</To>
+              <To>43</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>43</From>
-              <To>23</To>
+              <From>42</From>
+              <To>20</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>44</From>
+              <To>23</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>45</From>
               <To>11</To>
               <Label>Source1</Label>
             </Edge>
@@ -1402,7 +1427,7 @@
             <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:FileCapture">
-                <q5:FileName>Data\2018-07-20T10_30_02\2018-07-20T10_30_02-world.avi</q5:FileName>
+                <q5:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-world.avi</q5:FileName>
                 <q5:PlaybackRate>0</q5:PlaybackRate>
                 <q5:StartPosition>0</q5:StartPosition>
                 <q5:PositionUnits>Frames</q5:PositionUnits>
@@ -1477,7 +1502,7 @@
               <Name>FrameReady</Name>
             </Expression>
             <Expression xsi:type="q10:CsvReader">
-              <q10:FileName>Data\2018-07-20T10_30_02\2018-07-20T10_30_02-pupil.csv</q10:FileName>
+              <q10:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-pupil.csv</q10:FileName>
               <q10:Delimiter />
               <q10:ScanPattern>%f,%f</q10:ScanPattern>
               <q10:SkipRows>0</q10:SkipRows>
@@ -1512,15 +1537,15 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:CreatePoint2f">
-                <q5:X>134.4797</q5:X>
-                <q5:Y>175.3564</q5:Y>
+                <q5:X>163.3352</q5:X>
+                <q5:Y>117.7518</q5:Y>
               </Combinator>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
               <LocationX>0</LocationX>
               <LocationY>0</LocationY>
-              <SizeX>1.6</SizeX>
+              <SizeX>1.33333337</SizeX>
               <SizeY>-1</SizeY>
             </Expression>
             <Expression xsi:type="GroupWorkflow">
@@ -1852,6 +1877,7 @@
     <Type>Bonsai.Reactive.Merge, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.VideoWriter, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.IO.CsvWriter, Bonsai.System, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Slice, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Dsp.Concat, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.ConvertColor, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Resize, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
