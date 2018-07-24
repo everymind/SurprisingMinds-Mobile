@@ -80,6 +80,13 @@
           </q5:TangentialDistortion>
         </Combinator>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q5:Threshold">
+          <q5:ThresholdValue>0</q5:ThresholdValue>
+          <q5:MaxValue>255</q5:MaxValue>
+          <q5:ThresholdType>BinaryInv</q5:ThresholdType>
+        </Combinator>
+      </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>ViewMatrix</Name>
         <Workflow>
@@ -165,7 +172,7 @@
               <Combinator xsi:type="q6:MouseDown" />
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
-              <TextureName />
+              <TextureName>Start</TextureName>
               <LocationX>0</LocationX>
               <LocationY>0</LocationY>
               <SizeX>1.33333337</SizeX>
@@ -378,8 +385,8 @@
                     <Name>Threshold</Name>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawTarget">
-                    <LocationX>-0.293194979</LocationX>
-                    <LocationY>0.05401994</LocationY>
+                    <LocationX>0.64659375</LocationX>
+                    <LocationY>0.5452014</LocationY>
                     <SizeX>0.1</SizeX>
                     <SizeY>0.1</SizeY>
                   </Expression>
@@ -695,13 +702,6 @@
         <Workflow>
           <Nodes>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="q5:Threshold">
-                <q5:ThresholdValue>0</q5:ThresholdValue>
-                <q5:MaxValue>255</q5:MaxValue>
-                <q5:ThresholdType>BinaryInv</q5:ThresholdType>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:FindContours">
                 <q5:Mode>External</q5:Mode>
                 <q5:Method>ChainApproxNone</q5:Method>
@@ -737,16 +737,11 @@
             </Edge>
             <Edge>
               <From>2</From>
-              <To>3</To>
+              <To>4</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>3</From>
-              <To>5</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>4</From>
               <To>0</To>
               <Label>Source1</Label>
             </Edge>
@@ -840,7 +835,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:VideoWriter">
-                <q5:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-world.avi</q5:FileName>
+                <q5:FileName>Data\2018-07-24T08_48_58\2018-07-24T08_48_58-world.avi</q5:FileName>
                 <q5:Suffix>None</q5:Suffix>
                 <q5:Buffered>true</q5:Buffered>
                 <q5:Overwrite>false</q5:Overwrite>
@@ -854,7 +849,7 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="q10:CsvWriter">
-              <q10:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-pupil.csv</q10:FileName>
+              <q10:FileName>Data\2018-07-24T08_48_58\2018-07-24T08_48_58-pupil.csv</q10:FileName>
               <q10:Delimiter>,</q10:Delimiter>
               <q10:Append>false</q10:Append>
               <q10:Overwrite>false</q10:Overwrite>
@@ -862,7 +857,7 @@
               <q10:IncludeHeader>false</q10:IncludeHeader>
             </Expression>
             <Expression xsi:type="MemberSelector">
-              <Selector>Item2.Item2.Item1.Item2.Image</Selector>
+              <Selector>Item2.Item2.Item1.Item3.Image</Selector>
             </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Item4</Selector>
@@ -1222,7 +1217,7 @@
               <Name>Pupil</Name>
             </Expression>
             <Expression xsi:type="MemberSelector">
-              <Selector>Item2.Image</Selector>
+              <Selector>Item2,Item3.Image</Selector>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>Draw</Name>
@@ -1281,11 +1276,12 @@
             <Expression xsi:type="SubscribeSubject">
               <Name>FrameReady</Name>
             </Expression>
+            <Expression xsi:type="Add" />
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
               <LocationX>0</LocationX>
               <LocationY>0</LocationY>
-              <SizeX>1.6</SizeX>
+              <SizeX>1.33333337</SizeX>
               <SizeY>-1</SizeY>
             </Expression>
             <Expression xsi:type="GroupWorkflow">
@@ -1333,7 +1329,7 @@
             </Edge>
             <Edge>
               <From>1</From>
-              <To>12</To>
+              <To>17</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1358,7 +1354,7 @@
             </Edge>
             <Edge>
               <From>7</From>
-              <To>17</To>
+              <To>18</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
@@ -1393,7 +1389,7 @@
             </Edge>
             <Edge>
               <From>14</From>
-              <To>17</To>
+              <To>18</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1403,11 +1399,16 @@
             </Edge>
             <Edge>
               <From>17</From>
-              <To>4</To>
+              <To>12</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>18</From>
+              <To>4</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>19</From>
               <To>7</To>
               <Label>Source1</Label>
             </Edge>
@@ -1738,7 +1739,7 @@
     <Edges>
       <Edge>
         <From>0</From>
-        <To>15</To>
+        <To>16</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -1769,11 +1770,11 @@
       <Edge>
         <From>7</From>
         <To>11</To>
-        <Label>Source2</Label>
+        <Label>Source3</Label>
       </Edge>
       <Edge>
         <From>8</From>
-        <To>18</To>
+        <To>15</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -1798,32 +1799,42 @@
       </Edge>
       <Edge>
         <From>15</From>
-        <To>3</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>16</From>
-        <To>20</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>17</From>
         <To>19</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>18</From>
-        <To>10</To>
+        <From>15</From>
+        <To>11</To>
+        <Label>Source2</Label>
+      </Edge>
+      <Edge>
+        <From>16</From>
+        <To>3</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>19</From>
+        <From>17</From>
         <To>21</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
+        <From>18</From>
+        <To>20</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>19</From>
+        <To>10</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
         <From>20</From>
-        <To>17</To>
+        <To>22</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>21</From>
+        <To>18</To>
         <Label>Source1</Label>
       </Edge>
     </Edges>
@@ -1837,6 +1848,7 @@
     <Type>Bonsai.Vision.Centroid, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Zip, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Undistort, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Vision.Threshold, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.CreateOrthographic, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.AspectRatio, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.MultiplyBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -1864,7 +1876,6 @@
     <Type>Bonsai.Expressions.GreaterThanBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.IntProperty, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Scripting.ExpressionTransform, Bonsai.Scripting, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Vision.Threshold, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.FindContours, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.BinaryRegionAnalysis, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.LargestBinaryRegion, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -1881,6 +1892,7 @@
     <Type>Bonsai.Dsp.Concat, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.ConvertColor, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Resize, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.AddBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.IO.CsvReader, Bonsai.System, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>DrawGazeTarget, Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.CreatePoint2f, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
