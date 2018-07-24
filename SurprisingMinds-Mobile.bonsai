@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.4.0-preview">
-  <Workflow xmlns:q10="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns:q8="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp" xmlns:q2="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q9="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q3="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics" xmlns:q7="clr-namespace:;assembly=Extensions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q4="clr-namespace:Bonsai.Uvc;assembly=Bonsai.Uvc" xmlns:q6="clr-namespace:Bonsai.Shaders.Input;assembly=Bonsai.Shaders" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns="https://horizongir.org/bonsai">
+  <Workflow xmlns:q10="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting" xmlns:q8="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp" xmlns:q2="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:q9="clr-namespace:Bonsai.IO;assembly=Bonsai.System" xmlns:q3="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics" xmlns:q7="clr-namespace:;assembly=Extensions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q5="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision" xmlns:q4="clr-namespace:Bonsai.Uvc;assembly=Bonsai.Uvc" xmlns:q6="clr-namespace:Bonsai.Shaders.Input;assembly=Bonsai.Shaders" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns="https://horizongir.org/bonsai">
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q1:RenderFrame" />
@@ -309,7 +309,7 @@
             </Expression>
             <Expression xsi:type="ExternalizedProperty">
               <MemberName>FileName</MemberName>
-              <Name>FileName</Name>
+              <Name />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="ToArray" />
@@ -320,6 +320,25 @@
             <Expression xsi:type="ExternalizedProperty">
               <MemberName>Count</MemberName>
               <Name>Count</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q9:GetFiles">
+                <q9:Path>Movies</q9:Path>
+                <q9:SearchPattern>*.avi</q9:SearchPattern>
+                <q9:SearchOption>TopDirectoryOnly</q9:SearchOption>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Random</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>RandomSource</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Zip" />
+            </Expression>
+            <Expression xsi:type="q10:ExpressionTransform">
+              <q10:Expression>Item1[Item2.Next(Item1.Length)]</q10:Expression>
             </Expression>
             <Expression xsi:type="Defer">
               <Name>CalibrationTrial</Name>
@@ -489,8 +508,8 @@
                           <Name>Source1</Name>
                         </Expression>
                         <Expression xsi:type="WorkflowOutput" />
-                        <Expression xsi:type="q9:ExpressionTransform">
-                          <q9:Expression>!single.IsNaN(Item2.X)</q9:Expression>
+                        <Expression xsi:type="q10:ExpressionTransform">
+                          <q10:Expression>!single.IsNaN(Item2.X)</q10:Expression>
                         </Expression>
                       </Nodes>
                       <Edges>
@@ -691,6 +710,31 @@
             </Edge>
             <Edge>
               <From>15</From>
+              <To>18</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>16</From>
+              <To>17</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>17</From>
+              <To>18</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>18</From>
+              <To>19</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>19</From>
+              <To>11</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>20</From>
               <To>3</To>
               <Label>Source1</Label>
             </Edge>
@@ -848,13 +892,13 @@
                 <q5:ResizeInterpolation>NearestNeighbor</q5:ResizeInterpolation>
               </Combinator>
             </Expression>
-            <Expression xsi:type="q10:CsvWriter">
-              <q10:FileName>Data\2018-07-24T08_48_58\2018-07-24T08_48_58-pupil.csv</q10:FileName>
-              <q10:Delimiter>,</q10:Delimiter>
-              <q10:Append>false</q10:Append>
-              <q10:Overwrite>false</q10:Overwrite>
-              <q10:Suffix>None</q10:Suffix>
-              <q10:IncludeHeader>false</q10:IncludeHeader>
+            <Expression xsi:type="q9:CsvWriter">
+              <q9:FileName>Data\2018-07-24T08_48_58\2018-07-24T08_48_58-pupil.csv</q9:FileName>
+              <q9:Delimiter>,</q9:Delimiter>
+              <q9:Append>false</q9:Append>
+              <q9:Overwrite>false</q9:Overwrite>
+              <q9:Suffix>None</q9:Suffix>
+              <q9:IncludeHeader>false</q9:IncludeHeader>
             </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Item2.Item2.Item1.Item3.Image</Selector>
@@ -1502,11 +1546,11 @@
             <Expression xsi:type="SubscribeSubject">
               <Name>FrameReady</Name>
             </Expression>
-            <Expression xsi:type="q10:CsvReader">
-              <q10:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-pupil.csv</q10:FileName>
-              <q10:Delimiter />
-              <q10:ScanPattern>%f,%f</q10:ScanPattern>
-              <q10:SkipRows>0</q10:SkipRows>
+            <Expression xsi:type="q9:CsvReader">
+              <q9:FileName>Data\2018-07-20T12_01_53\2018-07-20T12_01_53-pupil.csv</q9:FileName>
+              <q9:Delimiter />
+              <q9:ScanPattern>%f,%f</q9:ScanPattern>
+              <q9:SkipRows>0</q9:SkipRows>
             </Expression>
             <Expression xsi:type="ExternalizedProperty">
               <MemberName>FileName</MemberName>
@@ -1865,6 +1909,8 @@
     <Type>Bonsai.Dsp.Extrema, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Grayscale, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.IO.GetFiles, Bonsai.System, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Scripting.ExpressionTransform, Bonsai.Scripting, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Numerics.Distributions.Sample, Bonsai.Numerics, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.WithLatestFrom, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -1875,7 +1921,6 @@
     <Type>Bonsai.Expressions.DoubleProperty, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.GreaterThanBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.IntProperty, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Scripting.ExpressionTransform, Bonsai.Scripting, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.FindContours, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.BinaryRegionAnalysis, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.LargestBinaryRegion, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
