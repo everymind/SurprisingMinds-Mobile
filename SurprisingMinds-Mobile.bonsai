@@ -407,8 +407,8 @@
                     <Name>Threshold</Name>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawTarget">
-                    <LocationX>0.625784934</LocationX>
-                    <LocationY>-0.228984654</LocationY>
+                    <LocationX>-0.0979545638</LocationX>
+                    <LocationY>-0.220691085</LocationY>
                     <SizeX>0.1</SizeX>
                     <SizeY>0.1</SizeY>
                   </Expression>
@@ -882,7 +882,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:VideoWriter">
-                <q5:FileName>Data\2018-07-24T08_59_24\2018-07-24T08_59_24-world.avi</q5:FileName>
+                <q5:FileName>Data\2018-07-24T09_24_36\2018-07-24T09_24_36-world.avi</q5:FileName>
                 <q5:Suffix>None</q5:Suffix>
                 <q5:Buffered>true</q5:Buffered>
                 <q5:Overwrite>false</q5:Overwrite>
@@ -896,7 +896,7 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="q9:CsvWriter">
-              <q9:FileName>Data\2018-07-24T08_59_24\2018-07-24T08_59_24-pupil.csv</q9:FileName>
+              <q9:FileName>Data\2018-07-24T09_24_36\2018-07-24T09_24_36-pupil.csv</q9:FileName>
               <q9:Delimiter>,</q9:Delimiter>
               <q9:Append>false</q9:Append>
               <q9:Overwrite>false</q9:Overwrite>
@@ -1475,7 +1475,7 @@
             <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:FileCapture">
-                <q5:FileName>Data\2018-07-24T08_59_24\2018-07-24T08_59_24-world.avi</q5:FileName>
+                <q5:FileName>Data\2018-07-24T09_24_36\2018-07-24T09_24_36-world.avi</q5:FileName>
                 <q5:PlaybackRate>0</q5:PlaybackRate>
                 <q5:StartPosition>0</q5:StartPosition>
                 <q5:PositionUnits>Frames</q5:PositionUnits>
@@ -1550,7 +1550,7 @@
               <Name>FrameReady</Name>
             </Expression>
             <Expression xsi:type="q9:CsvReader">
-              <q9:FileName>Data\2018-07-24T08_59_24\2018-07-24T08_59_24-pupil.csv</q9:FileName>
+              <q9:FileName>Data\2018-07-24T09_24_36\2018-07-24T09_24_36-pupil.csv</q9:FileName>
               <q9:Delimiter />
               <q9:ScanPattern>%f,%f</q9:ScanPattern>
               <q9:SkipRows>0</q9:SkipRows>
@@ -1585,9 +1585,12 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q5:CreatePoint2f">
-                <q5:X>67.75092</q5:X>
-                <q5:Y>72.55336</q5:Y>
+                <q5:X>128.869</q5:X>
+                <q5:Y>122.3235</q5:Y>
               </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Last" />
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
@@ -1671,7 +1674,7 @@
             </Edge>
             <Edge>
               <From>9</From>
-              <To>30</To>
+              <To>31</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
@@ -1716,12 +1719,12 @@
             </Edge>
             <Edge>
               <From>18</From>
-              <To>2</To>
+              <To>30</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>19</From>
-              <To>30</To>
+              <To>31</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1775,7 +1778,12 @@
               <Label>Source2</Label>
             </Edge>
             <Edge>
-              <From>31</From>
+              <From>30</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>32</From>
               <To>9</To>
               <Label>Source1</Label>
             </Edge>
