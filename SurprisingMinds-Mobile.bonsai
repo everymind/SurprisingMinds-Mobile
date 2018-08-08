@@ -46,9 +46,6 @@
         <Name>Pupil</Name>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q5:Centroid" />
-      </Expression>
-      <Expression xsi:type="Combinator">
         <Combinator xsi:type="Zip" />
       </Expression>
       <Expression xsi:type="PublishSubject">
@@ -343,6 +340,42 @@
             <Expression xsi:type="q10:ExpressionTransform">
               <q10:Expression>Item1[Item2.Next(Item1.Length)]</q10:Expression>
             </Expression>
+            <Expression xsi:type="q9:CsvWriter">
+              <q9:Delimiter>,</q9:Delimiter>
+              <q9:Append>false</q9:Append>
+              <q9:Overwrite>false</q9:Overwrite>
+              <q9:Suffix>None</q9:Suffix>
+              <q9:IncludeHeader>true</q9:IncludeHeader>
+            </Expression>
+            <Expression xsi:type="Unit" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Timestamp" />
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}-{1:d2}-{2:d2}T{3:d2}_{4:d2}_{5:d2}</Format>
+              <Selector>Timestamp.DateTime.Year,Timestamp.DateTime.Month,Timestamp.DateTime.Day,Timestamp.DateTime.Hour,Timestamp.DateTime.Minute,Timestamp.DateTime.Second</Selector>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>FileName</MemberName>
+              <Name />
+            </Expression>
+            <Expression xsi:type="AsyncSubject">
+              <Name>FileName</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FileName</Name>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>Data\{0}\{0}-calibration.csv</Format>
+            </Expression>
+            <Expression xsi:type="q10:ExpressionTransform">
+              <q10:Expression>new(
+Item1 as Target,
+Item2 as Pupil)</q10:Expression>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Target,Pupil</Selector>
+            </Expression>
             <Expression xsi:type="Defer">
               <Name>CalibrationTrial</Name>
               <Workflow>
@@ -405,6 +438,9 @@
                   <Expression xsi:type="ExternalizedProperty">
                     <MemberName>Value</MemberName>
                     <Name>Threshold</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1,Item2.Centroid</Selector>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawTarget">
                     <LocationX>-0.0979545638</LocationX>
@@ -511,8 +547,13 @@
                           <Name>Source1</Name>
                         </Expression>
                         <Expression xsi:type="WorkflowOutput" />
-                        <Expression xsi:type="q10:ExpressionTransform">
-                          <q10:Expression>!single.IsNaN(Item2.X)</q10:Expression>
+                        <Expression xsi:type="MemberSelector">
+                          <Selector>Item2.Area</Selector>
+                        </Expression>
+                        <Expression xsi:type="GreaterThan">
+                          <Operand xsi:type="DoubleProperty">
+                            <Value>0</Value>
+                          </Operand>
                         </Expression>
                       </Nodes>
                       <Edges>
@@ -523,6 +564,11 @@
                         </Edge>
                         <Edge>
                           <From>2</From>
+                          <To>3</To>
+                          <Label>Source1</Label>
+                        </Edge>
+                        <Edge>
+                          <From>3</From>
                           <To>1</To>
                           <Label>Source1</Label>
                         </Edge>
@@ -543,7 +589,7 @@
                   </Edge>
                   <Edge>
                     <From>1</From>
-                    <To>18</To>
+                    <To>19</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -553,12 +599,12 @@
                   </Edge>
                   <Edge>
                     <From>3</From>
-                    <To>18</To>
+                    <To>19</To>
                     <Label>Source2</Label>
                   </Edge>
                   <Edge>
                     <From>4</From>
-                    <To>18</To>
+                    <To>19</To>
                     <Label>Source3</Label>
                   </Edge>
                   <Edge>
@@ -588,12 +634,12 @@
                   </Edge>
                   <Edge>
                     <From>10</From>
-                    <To>19</To>
+                    <To>20</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>11</From>
-                    <To>20</To>
+                    <To>21</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -618,27 +664,32 @@
                   </Edge>
                   <Edge>
                     <From>17</From>
-                    <To>19</To>
+                    <To>20</To>
                     <Label>Source2</Label>
                   </Edge>
                   <Edge>
                     <From>18</From>
-                    <To>2</To>
+                    <To>13</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>19</From>
-                    <To>21</To>
+                    <To>2</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>20</From>
-                    <To>15</To>
+                    <To>22</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>21</From>
-                    <To>13</To>
+                    <To>15</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>22</From>
+                    <To>18</To>
                     <Label>Source1</Label>
                   </Edge>
                 </Edges>
@@ -649,7 +700,7 @@
             <Edge>
               <From>1</From>
               <To>13</To>
-              <Label>Source1</Label>
+              <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>2</From>
@@ -663,7 +714,7 @@
             </Edge>
             <Edge>
               <From>4</From>
-              <To>2</To>
+              <To>28</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -699,7 +750,7 @@
             <Edge>
               <From>12</From>
               <To>13</To>
-              <Label>Source2</Label>
+              <Label>Source3</Label>
             </Edge>
             <Edge>
               <From>13</From>
@@ -738,6 +789,56 @@
             </Edge>
             <Edge>
               <From>20</From>
+              <To>29</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>21</From>
+              <To>22</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>22</From>
+              <To>23</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>23</From>
+              <To>25</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>24</From>
+              <To>20</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>25</From>
+              <To>13</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>26</From>
+              <To>27</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>27</From>
+              <To>24</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>28</From>
+              <To>20</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>29</From>
+              <To>2</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>30</From>
               <To>3</To>
               <Label>Source1</Label>
             </Edge>
@@ -799,25 +900,14 @@
         <Name>MoviePlayback</Name>
         <Workflow>
           <Nodes>
-            <Expression xsi:type="Unit" />
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="Timestamp" />
-            </Expression>
-            <Expression xsi:type="Format">
-              <Format>{0}-{1:d2}-{2:d2}T{3:d2}_{4:d2}_{5:d2}</Format>
-              <Selector>Timestamp.DateTime.Year,Timestamp.DateTime.Month,Timestamp.DateTime.Day,Timestamp.DateTime.Hour,Timestamp.DateTime.Minute,Timestamp.DateTime.Second</Selector>
-            </Expression>
-            <Expression xsi:type="AsyncSubject">
-              <Name>FileName</Name>
-            </Expression>
             <Expression xsi:type="WorkflowInput">
               <Name>Source1</Name>
             </Expression>
             <Expression xsi:type="MemberSelector">
-              <Selector>Item1</Selector>
+              <Selector>Item2</Selector>
             </Expression>
             <Expression xsi:type="MemberSelector">
-              <Selector>Item2</Selector>
+              <Selector>Item3</Selector>
             </Expression>
             <Expression xsi:type="AsyncSubject">
               <Name>Model</Name>
@@ -896,12 +986,12 @@
               </Combinator>
             </Expression>
             <Expression xsi:type="q9:CsvWriter">
-              <q9:FileName>Data\2018-07-24T09_24_36\2018-07-24T09_24_36-pupil.csv</q9:FileName>
+              <q9:FileName />
               <q9:Delimiter>,</q9:Delimiter>
               <q9:Append>false</q9:Append>
               <q9:Overwrite>false</q9:Overwrite>
               <q9:Suffix>None</q9:Suffix>
-              <q9:IncludeHeader>false</q9:IncludeHeader>
+              <q9:IncludeHeader>true</q9:IncludeHeader>
             </Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>Item2.Item2.Item1.Item3.Image</Selector>
@@ -927,7 +1017,7 @@
               <Name>FileName</Name>
             </Expression>
             <Expression xsi:type="Format">
-              <Format>Data\{0}\{0}-pupil.csv</Format>
+              <Format>Data\{0}\{0}-gaze.csv</Format>
             </Expression>
             <Expression xsi:type="Format">
               <Format>Data\{0}\{0}-world.avi</Format>
@@ -951,6 +1041,33 @@
                 <Step>2</Step>
                 <Stop xsi:nil="true" />
               </Combinator>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Item1</Selector>
+            </Expression>
+            <Expression xsi:type="AsyncSubject">
+              <Name>FileName</Name>
+            </Expression>
+            <Expression xsi:type="q9:CsvWriter">
+              <q9:Delimiter>,</q9:Delimiter>
+              <q9:Append>false</q9:Append>
+              <q9:Overwrite>false</q9:Overwrite>
+              <q9:Suffix>None</q9:Suffix>
+              <q9:IncludeHeader>true</q9:IncludeHeader>
+              <q9:Selector>Item1.Centroid,Item1.MajorAxisLength,Item1.MinorAxisLength,Item1.Area</q9:Selector>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>FileName</MemberName>
+              <Name />
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FileName</Name>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>Data\{0}\{0}-pupil.csv</Format>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Item1.Centroid,Item2</Selector>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
@@ -1025,138 +1142,143 @@
           <Edges>
             <Edge>
               <From>0</From>
-              <To>1</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>1</From>
-              <To>2</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>2</From>
-              <To>3</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>3</From>
-              <To>37</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>4</From>
-              <To>5</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>4</From>
-              <To>6</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>5</From>
-              <To>7</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>6</From>
-              <To>8</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>9</From>
-              <To>42</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>10</From>
-              <To>17</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>11</From>
-              <To>27</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>12</From>
-              <To>13</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>13</From>
               <To>39</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>14</From>
-              <To>29</To>
+              <From>0</From>
+              <To>1</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>15</From>
-              <To>21</To>
+              <From>0</From>
+              <To>2</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>16</From>
-              <To>12</To>
+              <From>1</From>
+              <To>3</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>16</From>
-              <To>45</To>
+              <From>2</From>
+              <To>4</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>16</From>
+              <From>5</From>
+              <To>38</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>6</From>
+              <To>13</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>7</From>
+              <To>23</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>8</From>
+              <To>9</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>9</From>
+              <To>35</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>10</From>
               <To>25</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
+              <From>11</From>
+              <To>17</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>12</From>
+              <To>8</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>12</From>
+              <To>48</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>12</From>
+              <To>21</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>12</From>
+              <To>24</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>13</From>
+              <To>14</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>14</From>
+              <To>12</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>15</From>
+              <To>16</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
               <From>16</From>
-              <To>28</To>
+              <To>14</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>17</From>
-              <To>18</To>
-              <Label>Source2</Label>
+              <To>12</To>
+              <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>18</From>
-              <To>16</To>
-              <Label>Source2</Label>
+              <To>37</To>
+              <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>19</From>
-              <To>20</To>
+              <To>46</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>20</From>
-              <To>18</To>
-              <Label>Source1</Label>
+              <To>13</To>
+              <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>21</From>
-              <To>16</To>
+              <To>22</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>22</From>
-              <To>41</To>
-              <Label>Source1</Label>
+              <To>10</To>
+              <Label>Source3</Label>
             </Edge>
             <Edge>
               <From>23</From>
-              <To>43</To>
+              <To>10</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>24</From>
-              <To>17</To>
-              <Label>Source2</Label>
+              <To>10</To>
+              <Label>Source4</Label>
             </Edge>
             <Edge>
               <From>25</From>
@@ -1165,92 +1287,107 @@
             </Edge>
             <Edge>
               <From>26</From>
-              <To>14</To>
-              <Label>Source3</Label>
+              <To>33</To>
+              <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>27</From>
-              <To>14</To>
+              <To>23</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>28</From>
-              <To>14</To>
-              <Label>Source4</Label>
-            </Edge>
-            <Edge>
-              <From>29</From>
-              <To>30</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>30</From>
-              <To>37</To>
-              <Label>Source2</Label>
-            </Edge>
-            <Edge>
-              <From>31</From>
-              <To>27</To>
-              <Label>Source2</Label>
-            </Edge>
-            <Edge>
-              <From>32</From>
-              <To>35</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>33</From>
-              <To>26</To>
-              <Label>Source2</Label>
-            </Edge>
-            <Edge>
-              <From>34</From>
-              <To>36</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>35</From>
               <To>31</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>36</From>
-              <To>33</To>
+              <From>29</From>
+              <To>22</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>30</From>
+              <To>32</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
+              <From>31</From>
+              <To>27</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>32</From>
+              <To>29</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>33</From>
+              <To>34</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>35</From>
+              <To>10</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>36</From>
+              <To>37</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
               <From>37</From>
-              <To>38</To>
+              <To>46</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>38</From>
+              <To>16</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>39</From>
-              <To>14</To>
+              <To>40</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>40</From>
-              <To>41</To>
-              <Label>Source2</Label>
+              <To>33</To>
+              <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>41</From>
-              <To>43</To>
+              <To>45</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>42</From>
-              <To>20</To>
+              <To>41</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>43</From>
+              <To>44</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>44</From>
-              <To>23</To>
+              <To>42</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>45</From>
-              <To>11</To>
+              <To>7</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>47</From>
+              <To>19</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>48</From>
+              <To>41</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -1919,7 +2056,7 @@
     <Edges>
       <Edge>
         <From>0</From>
-        <To>17</To>
+        <To>16</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -1939,7 +2076,7 @@
       </Edge>
       <Edge>
         <From>6</From>
-        <To>13</To>
+        <To>12</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
@@ -1949,82 +2086,77 @@
       </Edge>
       <Edge>
         <From>7</From>
-        <To>11</To>
+        <To>10</To>
         <Label>Source3</Label>
       </Edge>
       <Edge>
         <From>8</From>
-        <To>15</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>10</From>
-        <To>11</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>11</From>
-        <To>9</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>13</From>
         <To>14</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>14</From>
-        <To>12</To>
+        <From>10</From>
+        <To>9</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>15</From>
-        <To>20</To>
+        <From>12</From>
+        <To>13</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>15</From>
+        <From>13</From>
         <To>11</To>
-        <Label>Source2</Label>
-      </Edge>
-      <Edge>
-        <From>17</From>
-        <To>3</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>18</From>
-        <To>22</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>19</From>
-        <To>21</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>20</From>
-        <To>10</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>21</From>
-        <To>23</To>
-        <Label>Source1</Label>
-      </Edge>
-      <Edge>
-        <From>22</From>
+        <From>14</From>
         <To>19</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>23</From>
-        <To>24</To>
+        <From>14</From>
+        <To>10</To>
+        <Label>Source2</Label>
+      </Edge>
+      <Edge>
+        <From>16</From>
+        <To>3</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
-        <From>24</From>
-        <To>16</To>
+        <From>17</From>
+        <To>21</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>18</From>
+        <To>20</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>19</From>
+        <To>10</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>20</From>
+        <To>22</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>21</From>
+        <To>18</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>22</From>
+        <To>23</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>23</From>
+        <To>15</To>
         <Label>Source1</Label>
       </Edge>
     </Edges>
@@ -2035,7 +2167,6 @@
     <Type>Bonsai.Expressions.AsyncSubjectBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Numerics.Distributions.CreateContinuousUniform, Bonsai.Numerics, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Uvc.DeviceCapture, Bonsai.Uvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Vision.Centroid, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Zip, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Undistort, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Threshold, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -2057,6 +2188,9 @@
     <Type>Bonsai.Vision.FileCapture, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.IO.GetFiles, Bonsai.System, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Scripting.ExpressionTransform, Bonsai.Scripting, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.IO.CsvWriter, Bonsai.System, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Timestamp, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.FormatBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Numerics.Distributions.Sample, Bonsai.Numerics, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.WithLatestFrom, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -2070,15 +2204,12 @@
     <Type>Bonsai.Vision.FindContours, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.BinaryRegionAnalysis, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.LargestBinaryRegion, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Reactive.Timestamp, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Expressions.FormatBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>ModelPredict, Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.UpdateTexture, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.CombineLatest, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.SkipUntil, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Merge, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.VideoWriter, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.IO.CsvWriter, Bonsai.System, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Slice, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Dsp.Concat, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.ConvertColor, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
