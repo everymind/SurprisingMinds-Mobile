@@ -25,7 +25,9 @@
       <Expression xsi:type="WorkflowOutput" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q4:DeviceCapture">
-          <q4:Index>0</q4:Index>
+          <q4:Index>2</q4:Index>
+          <q4:Width>320</q4:Width>
+          <q4:Height>240</q4:Height>
           <q4:ColorFormat>Color</q4:ColorFormat>
           <q4:AutoExposure>Manual</q4:AutoExposure>
           <q4:ExposureTime>129</q4:ExposureTime>
@@ -33,7 +35,9 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q4:DeviceCapture">
-          <q4:Index>2</q4:Index>
+          <q4:Index>1</q4:Index>
+          <q4:Width>400</q4:Width>
+          <q4:Height>400</q4:Height>
           <q4:ColorFormat>Grayscale</q4:ColorFormat>
           <q4:AutoExposure xsi:nil="true" />
           <q4:ExposureTime xsi:nil="true" />
