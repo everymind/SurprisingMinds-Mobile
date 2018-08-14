@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.4.0-preview">
   <Description>Draws an affine transformed calibration target.</Description>
-  <Workflow xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns="https://horizongir.org/bonsai">
+  <Workflow xmlns:q1="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://horizongir.org/bonsai">
     <Nodes>
       <Expression xsi:type="WorkflowInput">
         <Name>Source1</Name>
@@ -38,18 +38,28 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q1:Scale">
           <q1:Order>Prepend</q1:Order>
-          <q1:X>1</q1:X>
-          <q1:Y>1</q1:Y>
+          <q1:X>0.1</q1:X>
+          <q1:Y>0.1</q1:Y>
           <q1:Z>1</q1:Z>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q1:Translate">
           <q1:Order>Prepend</q1:Order>
-          <q1:X>0</q1:X>
-          <q1:Y>0</q1:Y>
+          <q1:X>-0.0979545638</q1:X>
+          <q1:Y>-0.220691085</q1:Y>
           <q1:Z>0</q1:Z>
         </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q1:RotateZ">
+          <q1:Order>Prepend</q1:Order>
+          <q1:Angle>0</q1:Angle>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="ExternalizedProperty">
+        <MemberName>Angle</MemberName>
+        <Name>Angle</Name>
       </Expression>
     </Nodes>
     <Edges>
@@ -90,13 +100,23 @@
       </Edge>
       <Edge>
         <From>8</From>
-        <To>7</To>
+        <To>10</To>
         <Label>Source1</Label>
       </Edge>
       <Edge>
         <From>9</From>
         <To>8</To>
         <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>10</From>
+        <To>7</To>
+        <Label>Source1</Label>
+      </Edge>
+      <Edge>
+        <From>11</From>
+        <To>10</To>
+        <Label>Source2</Label>
       </Edge>
     </Edges>
   </Workflow>
@@ -105,5 +125,6 @@
     <Type>Bonsai.Shaders.UpdateUniform, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.Scale, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.Translate, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.RotateZ, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
   </ExtensionTypes>
 </WorkflowBuilder>
