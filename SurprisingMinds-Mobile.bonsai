@@ -101,7 +101,7 @@
       </Expression>
       <Expression xsi:type="ExternalizedProperty">
         <MemberName>ThresholdValue</MemberName>
-        <Name>ThresholdValue</Name>
+        <Name />
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>ViewMatrix</Name>
