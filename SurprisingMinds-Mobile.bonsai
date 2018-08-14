@@ -1099,6 +1099,9 @@ Item3 as Frames)</q10:Expression>
             <Expression xsi:type="MemberSelector">
               <Selector>FileName</Selector>
             </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>FileName</Selector>
+            </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
               <LocationX>0</LocationX>
@@ -1217,7 +1220,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>8</From>
-              <To>49</To>
+              <To>50</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1262,7 +1265,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>15</From>
-              <To>47</To>
+              <To>48</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
@@ -1347,7 +1350,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>33</From>
-              <To>47</To>
+              <To>48</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1357,7 +1360,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>35</From>
-              <To>29</To>
+              <To>47</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1416,12 +1419,17 @@ Item3 as Frames)</q10:Expression>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>48</From>
-              <To>15</To>
+              <From>47</From>
+              <To>29</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>49</From>
+              <To>15</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>50</From>
               <To>36</To>
               <Label>Source1</Label>
             </Edge>
@@ -1724,8 +1732,8 @@ Item3 as Frames)</q10:Expression>
             <Expression xsi:type="q9:CsvReader">
               <q9:FileName>Data\2018-07-24T09_24_36\2018-07-24T09_24_36-pupil.csv</q9:FileName>
               <q9:Delimiter />
-              <q9:ScanPattern>%f,%f</q9:ScanPattern>
-              <q9:SkipRows>0</q9:SkipRows>
+              <q9:ScanPattern>%f,%f,%f,%f,%f</q9:ScanPattern>
+              <q9:SkipRows>1</q9:SkipRows>
             </Expression>
             <Expression xsi:type="ExternalizedProperty">
               <MemberName>FileName</MemberName>
