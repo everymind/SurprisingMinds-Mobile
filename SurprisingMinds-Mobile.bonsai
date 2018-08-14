@@ -1824,6 +1824,46 @@ Item3 as Frames)</q10:Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="Last" />
             </Expression>
+            <Expression xsi:type="q9:CsvReader">
+              <q9:FileName>Data\2018-07-24T09_24_36\2018-07-24T09_24_36-pupil.csv</q9:FileName>
+              <q9:Delimiter />
+              <q9:ScanPattern>%f,%f,%f,%f,%f</q9:ScanPattern>
+              <q9:SkipRows>1</q9:SkipRows>
+            </Expression>
+            <Expression xsi:type="ExternalizedProperty">
+              <MemberName>FileName</MemberName>
+              <Name />
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Item1</Selector>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>Data\{0}\{0}-pupil.csv</Format>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Input</Name>
+            </Expression>
+            <Expression xsi:type="InputMapping">
+              <PropertyMappings>
+                <Property name="X" selector="Item1" />
+                <Property name="Y" selector="Item2" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q5:CreatePoint2f">
+                <q5:X>128.869</q5:X>
+                <q5:Y>122.3235</q5:Y>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="Zip" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="q7:DrawGazeTarget">
+                <q7:Radius>3</q7:Radius>
+                <q7:Thickness>-1</q7:Thickness>
+              </Combinator>
+            </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
               <LocationX>0</LocationX>
@@ -1906,7 +1946,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>9</From>
-              <To>31</To>
+              <To>40</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
@@ -1941,7 +1981,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>16</From>
-              <To>17</To>
+              <To>38</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1956,7 +1996,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>19</From>
-              <To>31</To>
+              <To>40</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -2015,7 +2055,52 @@ Item3 as Frames)</q10:Expression>
               <Label>Source1</Label>
             </Edge>
             <Edge>
+              <From>31</From>
+              <To>36</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
               <From>32</From>
+              <To>31</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>33</From>
+              <To>34</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>34</From>
+              <To>32</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>35</From>
+              <To>33</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>36</From>
+              <To>37</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>37</From>
+              <To>38</To>
+              <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>38</From>
+              <To>39</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>39</From>
+              <To>17</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>41</From>
               <To>9</To>
               <Label>Source1</Label>
             </Edge>
