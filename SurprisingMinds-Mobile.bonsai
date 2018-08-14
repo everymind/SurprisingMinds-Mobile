@@ -172,9 +172,6 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="TakeUntil" />
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="Last" />
-            </Expression>
             <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="ExternalizedProperty">
               <MemberName>TextureName</MemberName>
@@ -186,6 +183,9 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q6:MouseDown" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="LastOrDefault" />
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Start</TextureName>
@@ -239,28 +239,28 @@
             </Edge>
             <Edge>
               <From>1</From>
-              <To>2</To>
+              <To>6</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>2</From>
-              <To>3</To>
-              <Label>Source1</Label>
+              <From>3</From>
+              <To>7</To>
+              <Label>Source2</Label>
             </Edge>
             <Edge>
               <From>4</From>
               <To>7</To>
-              <Label>Source2</Label>
-            </Edge>
-            <Edge>
-              <From>5</From>
-              <To>7</To>
               <Label>Source3</Label>
             </Edge>
             <Edge>
-              <From>6</From>
+              <From>5</From>
               <To>1</To>
               <Label>Source2</Label>
+            </Edge>
+            <Edge>
+              <From>6</From>
+              <To>2</To>
+              <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>7</From>
@@ -269,7 +269,7 @@
             </Edge>
             <Edge>
               <From>8</From>
-              <To>5</To>
+              <To>4</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -1456,9 +1456,6 @@ Item3 as Frames)</q10:Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="q6:MouseDown" />
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="Last" />
-            </Expression>
             <Expression xsi:type="ExternalizedProperty">
               <MemberName>SizeX</MemberName>
               <Name />
@@ -1504,6 +1501,9 @@ Item3 as Frames)</q10:Expression>
               <Name>FrameReady</Name>
             </Expression>
             <Expression xsi:type="Add" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="LastOrDefault" />
+            </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawSprite">
               <TextureName>Video</TextureName>
               <LocationX>0</LocationX>
@@ -1556,17 +1556,17 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>1</From>
-              <To>17</To>
+              <To>16</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>2</From>
-              <To>14</To>
+              <To>13</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>4</From>
-              <To>6</To>
+              <To>17</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1576,57 +1576,57 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>6</From>
-              <To>3</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>7</From>
               <To>18</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
+              <From>7</From>
+              <To>8</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
               <From>8</From>
-              <To>9</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>9</From>
-              <To>11</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>10</From>
-              <To>15</To>
-              <Label>Source1</Label>
-            </Edge>
-            <Edge>
-              <From>11</From>
               <To>10</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>12</From>
-              <To>13</To>
+              <From>9</From>
+              <To>14</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>13</From>
+              <From>10</From>
               <To>9</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>11</From>
+              <To>12</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>12</From>
+              <To>8</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
-              <From>14</From>
+              <From>13</From>
               <To>18</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
-              <From>16</From>
-              <To>14</To>
+              <From>15</From>
+              <To>13</To>
               <Label>Source2</Label>
             </Edge>
             <Edge>
+              <From>16</From>
+              <To>11</To>
+              <Label>Source1</Label>
+            </Edge>
+            <Edge>
               <From>17</From>
-              <To>12</To>
+              <To>3</To>
               <Label>Source1</Label>
             </Edge>
             <Edge>
@@ -1636,7 +1636,7 @@ Item3 as Frames)</q10:Expression>
             </Edge>
             <Edge>
               <From>19</From>
-              <To>7</To>
+              <To>6</To>
               <Label>Source1</Label>
             </Edge>
           </Edges>
@@ -2422,8 +2422,8 @@ Item3 as Frames)</q10:Expression>
     <Type>Bonsai.Expressions.MultiplyBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.FloatProperty, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.TakeUntil, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Reactive.Last, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.Input.MouseDown, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.LastOrDefault, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Shaders.UpdateFrame, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>ModelUpdate, Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.ToArray, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
@@ -2440,6 +2440,7 @@ Item3 as Frames)</q10:Expression>
     <Type>Bonsai.Numerics.Distributions.Sample, Bonsai.Numerics, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.DelaySubscription, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.WithLatestFrom, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Reactive.Last, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>AverageCorrespondence, Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.SkipWhileBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Dsp.Difference, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
