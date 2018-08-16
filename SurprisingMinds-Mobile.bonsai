@@ -464,12 +464,19 @@ Item3 as Frames)</q10:Expression>
                   <Expression xsi:type="MemberSelector">
                     <Selector>Item1,Item2.Centroid</Selector>
                   </Expression>
-                  <Expression xsi:type="ExternalizedProperty">
-                    <MemberName>Angle</MemberName>
-                    <Name>Angle</Name>
-                  </Expression>
                   <Expression xsi:type="PublishSubject">
                     <Name>MarkerFound</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="FloatProperty">
+                      <Value>0</Value>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:UpdateUniform">
+                      <q1:UniformName>bias</q1:UniformName>
+                      <q1:ShaderName>Target</q1:ShaderName>
+                    </Combinator>
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
                     <Name>MarkerFound</Name>
@@ -479,11 +486,16 @@ Item3 as Frames)</q10:Expression>
                       <Value>1</Value>
                     </Combinator>
                   </Expression>
-                  <Expression xsi:type="Accumulate" />
-                  <Expression xsi:type="Divide">
-                    <Operand xsi:type="FloatProperty">
-                      <Value>5</Value>
-                    </Operand>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="q1:UpdateUniform">
+                      <q1:UniformName>bias</q1:UniformName>
+                      <q1:ShaderName>Target</q1:ShaderName>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="DelaySubscription">
+                      <DueTime>PT0.5S</DueTime>
+                    </Combinator>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawTarget">
                     <LocationX>-0.0979545638</LocationX>
@@ -633,7 +645,7 @@ Item3 as Frames)</q10:Expression>
                   </Edge>
                   <Edge>
                     <From>1</From>
-                    <To>25</To>
+                    <To>26</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -643,12 +655,12 @@ Item3 as Frames)</q10:Expression>
                   </Edge>
                   <Edge>
                     <From>3</From>
-                    <To>25</To>
+                    <To>26</To>
                     <Label>Source2</Label>
                   </Edge>
                   <Edge>
                     <From>4</From>
-                    <To>25</To>
+                    <To>26</To>
                     <Label>Source3</Label>
                   </Edge>
                   <Edge>
@@ -678,12 +690,12 @@ Item3 as Frames)</q10:Expression>
                   </Edge>
                   <Edge>
                     <From>10</From>
-                    <To>26</To>
+                    <To>27</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>11</From>
-                    <To>27</To>
+                    <To>28</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -708,7 +720,7 @@ Item3 as Frames)</q10:Expression>
                   </Edge>
                   <Edge>
                     <From>17</From>
-                    <To>26</To>
+                    <To>27</To>
                     <Label>Source2</Label>
                   </Edge>
                   <Edge>
@@ -718,17 +730,12 @@ Item3 as Frames)</q10:Expression>
                   </Edge>
                   <Edge>
                     <From>19</From>
-                    <To>25</To>
-                    <Label>Source4</Label>
-                  </Edge>
-                  <Edge>
-                    <From>20</From>
                     <To>18</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
-                    <From>21</From>
-                    <To>22</To>
+                    <From>20</From>
+                    <To>25</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
@@ -742,28 +749,28 @@ Item3 as Frames)</q10:Expression>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
-                    <From>24</From>
-                    <To>19</To>
-                    <Label>Source1</Label>
-                  </Edge>
-                  <Edge>
                     <From>25</From>
-                    <To>2</To>
+                    <To>21</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>26</From>
-                    <To>28</To>
+                    <To>2</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>27</From>
-                    <To>15</To>
+                    <To>29</To>
                     <Label>Source1</Label>
                   </Edge>
                   <Edge>
                     <From>28</From>
-                    <To>20</To>
+                    <To>15</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>29</From>
+                    <To>19</To>
                     <Label>Source1</Label>
                   </Edge>
                 </Edges>
@@ -2579,8 +2586,7 @@ Item3 as Frames)</q10:Expression>
     <Type>Bonsai.Reactive.WithLatestFrom, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Reactive.Last, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>AverageCorrespondence, Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Reactive.AccumulateBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
-    <Type>Bonsai.Expressions.DivideBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Shaders.UpdateUniform, Bonsai.Shaders, Version=0.19.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.SkipWhileBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Dsp.Difference, Bonsai.Dsp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.LessThanBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
