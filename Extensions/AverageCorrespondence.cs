@@ -10,7 +10,7 @@ using OpenCV.Net;
 [WorkflowElementCategory(ElementCategory.Transform)]
 public class AverageCorrespondence
 {
-    public IObservable<Tuple<Point2f, Point2f>> Process(IObservable<Tuple<ArrayExtrema, Point2f>[]> source)
+    public IObservable<Tuple<Point2f, Point2f>> Process(IObservable<Tuple<Point2f, Point2f>[]> source)
     {
         return source.Select(value =>
         {
@@ -23,7 +23,7 @@ public class AverageCorrespondence
                 var meanWeight = 1f / value.Length;
                 for (int i = 0; i < value.Length; i++)
                 {
-                    meanCorrespondence1 += new Point2f(value[i].Item1.MaxLocation) * meanWeight;
+                    meanCorrespondence1 += value[i].Item1 * meanWeight;
                     meanCorrespondence2 += value[i].Item2 * meanWeight;
                 }
             }
