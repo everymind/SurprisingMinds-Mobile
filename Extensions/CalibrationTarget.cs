@@ -8,6 +8,7 @@ public class CalibrationTarget
     public CalibrationTarget(PointF position, Action onHit)
     {
         Position = position;
+        this.onHit = onHit;
     }
 
     public PointF Position { get; private set; }
