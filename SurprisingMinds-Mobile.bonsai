@@ -1781,6 +1781,42 @@ Item3 as Frames)</q8:Expression>
                 </Edges>
               </Workflow>
             </Expression>
+            <Expression xsi:type="Condition">
+              <Name>RightClick</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>EventArgs.Button</Selector>
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="WorkflowPropertyOfMouseButton">
+                      <Value>Right</Value>
+                    </Operand>
+                  </Expression>
+                </Nodes>
+                <Edges>
+                  <Edge>
+                    <From>0</From>
+                    <To>2</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>2</From>
+                    <To>3</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                  <Edge>
+                    <From>3</From>
+                    <To>1</To>
+                    <Label>Source1</Label>
+                  </Edge>
+                </Edges>
+              </Workflow>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge>
@@ -1805,8 +1841,8 @@ Item3 as Frames)</q8:Expression>
             </Edge>
             <Edge>
               <From>5</From>
-              <To>4</To>
-              <Label>Source2</Label>
+              <To>20</To>
+              <Label>Source1</Label>
             </Edge>
             <Edge>
               <From>6</From>
@@ -1872,6 +1908,11 @@ Item3 as Frames)</q8:Expression>
               <From>19</From>
               <To>6</To>
               <Label>Source1</Label>
+            </Edge>
+            <Edge>
+              <From>20</From>
+              <To>4</To>
+              <Label>Source2</Label>
             </Edge>
           </Edges>
         </Workflow>
@@ -2839,6 +2880,7 @@ Item3 as Frames)</q8:Expression>
     <Type>Bonsai.Vision.ConvertColor, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.Resize, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Expressions.AddBuilder, Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
+    <Type>Bonsai.Expressions.WorkflowProperty`1[[OpenTK.Input.MouseButton, OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4]], Bonsai.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.IO.CsvReader, Bonsai.System, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>DrawGazeTarget, Extensions, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</Type>
     <Type>Bonsai.Vision.CreatePoint2f, Bonsai.Vision, Version=2.4.0.0, Culture=neutral, PublicKeyToken=null</Type>
