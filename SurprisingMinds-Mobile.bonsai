@@ -16,7 +16,6 @@
       <Expression xsi:type="PublishSubject">
         <Name>Draw</Name>
       </Expression>
-      <Expression xsi:type="WorkflowOutput" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q3:DeviceCapture">
           <q3:Index>2</q3:Index>
@@ -96,6 +95,21 @@
       <Expression xsi:type="ExternalizedProperty">
         <MemberName>ThresholdValue</MemberName>
         <Name />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="q5:KeyDown" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>EventArgs.Key</Selector>
+      </Expression>
+      <Expression xsi:type="Equal">
+        <Operand xsi:type="WorkflowPropertyOfKey">
+          <Value>Escape</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="First" />
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>ViewMatrix</Name>
