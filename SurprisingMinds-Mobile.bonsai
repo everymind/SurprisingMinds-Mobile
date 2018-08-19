@@ -20,11 +20,11 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="q3:DeviceCapture">
           <q3:Index>2</q3:Index>
-          <q3:Width>320</q3:Width>
-          <q3:Height>240</q3:Height>
+          <q3:Width>640</q3:Width>
+          <q3:Height>480</q3:Height>
           <q3:ColorFormat>Color</q3:ColorFormat>
           <q3:AutoExposure>Manual</q3:AutoExposure>
-          <q3:ExposureTime>129</q3:ExposureTime>
+          <q3:ExposureTime>258</q3:ExposureTime>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -61,11 +61,11 @@
             <q4:Y>100</q4:Y>
           </q4:FocalLength>
           <q4:PrincipalPoint>
-            <q4:X>160</q4:X>
-            <q4:Y>120</q4:Y>
+            <q4:X>320</q4:X>
+            <q4:Y>240</q4:Y>
           </q4:PrincipalPoint>
           <q4:RadialDistortion>
-            <q4:X>-0.075</q4:X>
+            <q4:X>-0.02</q4:X>
             <q4:Y>0</q4:Y>
             <q4:Z>0</q4:Z>
           </q4:RadialDistortion>
