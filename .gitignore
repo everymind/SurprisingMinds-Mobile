@@ -1,4 +1,14 @@
 bin
 obj
-Data
+Data\2018-08-18
+Data\2018-08-19
+Data\2018-08-21
+Data\2018-08-22
+Data\2018-08-23
+Data\2018-08-24
+Data\2018-08-25
+Data\2018-08-26
+Data\2018-08-27
+*.png
+*.avi
 *.layout
